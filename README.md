@@ -2,7 +2,7 @@
 
 # 🛠️ Descrição
 
-* Projeto full stack web e mobile de catálogo de produtos e área administrativa com autenticação e autorização, desenvolvido durante o Bootcamp DevSuperior
+* Projeto full stack web e mobile de catálogo de produtos e área administrativa com autenticação e autorização
 
 * Primeira parte Backend
 
@@ -84,3 +84,13 @@ por outra implementação, a aplicação continuará funcionando
 * Paginação de dados
 * Associações entre entidades (N-N)
 * Documentação API
+
+## Desenvolvimento api e estruturas
+
+* Estrutura camadas
+
+![alter text](https://github.com/wagnersistemalima/kotlin-dscatalog-devsuperior/blob/main/backend/images/padraocamadas.png)
+
+** Modelo conceitual
+
+![alter text](https://github.com/wagnersistemalima/kotlin-dscatalog-devsuperior/blob/main/backend/images/modeloconceitual.png)
