@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository
 interface CategoryRepository: JpaRepository<Category, Long> {
 
     fun existsByName(name: String): Boolean
+
+
 }

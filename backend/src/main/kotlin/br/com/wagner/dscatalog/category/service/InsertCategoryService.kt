@@ -7,6 +7,7 @@ import br.com.wagner.dscatalog.handler.ExceptionGenericValidated
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 @Service
 class InsertCategoryService(@field:Autowired val categoryRepository: CategoryRepository) {
@@ -15,6 +16,7 @@ class InsertCategoryService(@field:Autowired val categoryRepository: CategoryRep
 
     // metodo contendo a logica para cadastrar uma nova categoria
 
+    @Transactional
     fun insert(request: InsertCategoryRequest): InsertCategoryResponse {
         logger.info("---Execultando o cadastro de uma nova categoria  ${request.name}----")
 
