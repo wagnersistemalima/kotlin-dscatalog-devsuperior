@@ -91,6 +91,6 @@ por outra implementação, a aplicação continuará funcionando
 
 ![alter text](https://github.com/wagnersistemalima/kotlin-dscatalog-devsuperior/blob/main/backend/images/padraocamadas.png)
 
-** Modelo conceitual
+* Modelo conceitual
 
 ![alter text](https://github.com/wagnersistemalima/kotlin-dscatalog-devsuperior/blob/main/backend/images/modeloconceitual.png)
