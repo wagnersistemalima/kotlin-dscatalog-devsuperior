@@ -11,6 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureDataJpa
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.PageRequest
+import org.springframework.data.domain.Sort
 import org.springframework.http.MediaType
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.web.servlet.MockMvc
@@ -18,7 +21,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 import org.springframework.transaction.annotation.Transactional
 import java.net.URI
-import java.util.stream.Collectors
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -66,11 +68,17 @@ class ListarTodasCategoryControllerTest {
         )
         categoryRepository.save(category02)
 
+        val page: Int = 0
+        val linesPerPage: Int = 12
+        val direction: String = "ASC"
+        val orderBy: String = "name"
+
+        val pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy)
         // ação
 
-        val list = categoryRepository.findAll()
+        val list = categoryRepository.findAll(pageRequest)
 
-        val response = list.stream().map { category -> ListaCategoryResponse(category) }.collect(Collectors.toList())
+        val response = list.map { category -> ListaCategoryResponse(category) }
 
         mockMvc.perform(MockMvcRequestBuilders.get(uri).contentType(MediaType.APPLICATION_JSON))
             .andExpect(MockMvcResultMatchers.status().`is`(200))
@@ -81,7 +89,7 @@ class ListarTodasCategoryControllerTest {
 
     // metodo para desserializar objeto de resposta
 
-    private fun toJson(response: MutableList<ListaCategoryResponse>): String {
+    private fun toJson(response: Page<ListaCategoryResponse>): String {
         return objectMapper.writeValueAsString(response)
     }
 }
