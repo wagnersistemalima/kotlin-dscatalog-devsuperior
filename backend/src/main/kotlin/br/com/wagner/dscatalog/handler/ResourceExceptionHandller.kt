@@ -46,5 +46,16 @@ class ResourceExceptionHandller {
         return  ResponseEntity.status(status).body(error)
     }
 
+    // metodo para captar exceção do violação banco de dados
+
+    @ExceptionHandler(DataBaseException::class)
+    fun notFound(e: DataBaseException, request: HttpServletRequest): ResponseEntity<Any> {
+        val status = HttpStatus.BAD_REQUEST
+        val error = ValidationError(Instant.now(), status.value(), "Entity not found", message = e.message!!, path = request.requestURI)
+
+        return  ResponseEntity.status(status).body(error)
+    }
+
+
 
 }
