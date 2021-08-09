@@ -8,16 +8,16 @@ import javax.persistence.*
 @Table(name = "tb_product")
 class Product(
 
-    val name: String,
+    var name: String,
 
     @field:Column(columnDefinition = "TEXT")
-    val description: String,
-    val price: Double,
-    val imgUrl: String,
+    var description: String,
+    var price: Double,
+    var imgUrl: String,
 
     @field:ManyToOne          // associação -> varios produtos pode pertence a uma categoria
     @field:JoinColumn(name = "category_id")   //  chave estrangeira na tabela tb_product
-    val category: Category
+    var category: Category
 
 ) {
 

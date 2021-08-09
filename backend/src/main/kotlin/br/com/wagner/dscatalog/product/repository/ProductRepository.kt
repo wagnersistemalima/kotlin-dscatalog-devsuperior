@@ -12,4 +12,6 @@ interface ProductRepository: JpaRepository<Product, Long> {
     fun findByName(name: String): Optional<Product>
 
     fun findByCategoryId(id: Long): MutableList<Product>
+
+    fun existsByName(name: String): Boolean
 }
