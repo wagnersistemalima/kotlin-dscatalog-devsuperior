@@ -37,13 +37,13 @@ por outra implementação, a aplicação continuará funcionando
 
 * Ferramenta Postman: Para testar as requisições e criar um ambiente de produção
 
-## Testes automatizados com JUnit 5 com 96% de linhas cobertas
+## Testes automatizados com JUnit 5 com 95% de linhas cobertas
 * O JUnit foi repensado como uma plataforma para construção e execução de testes, de modo que o JUnit 5 é composto por diversos módulos com papéis diferentes (ao invés de “um único framework”)
 * JUnit Jupiter: Este módulo contém os novos recursos para construção de testes usando o JUnit, e fornece uma implementação de TestEngine para execução dos testes escritos com o JUnit Jupiter.
 * Testes unitarios ( @Mock , @InjectMock, @ExtendWith(SpringExtension::class))
 * Testes de integraçao com um banco de testes (@SpringBootTest, @AutoConfigureDataMongo, @AutoConfigureMockMvc, @ActiveProfile("teste"))
 
-
+![alter text](https://github.com/wagnersistemalima/kotlin-dscatalog-devsuperior/blob/main/backend/images/coverageDsCatalog.png)
 
 ## Porque Kotlin
 * Com o conhecimento da linguagem Kotlin, é possivel desenvolver aplicações mobile, backend e web
