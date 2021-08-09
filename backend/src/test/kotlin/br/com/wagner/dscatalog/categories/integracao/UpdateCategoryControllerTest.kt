@@ -3,6 +3,8 @@ package br.com.wagner.dscatalog.categories.integracao
 import br.com.wagner.dscatalog.category.model.Category
 import br.com.wagner.dscatalog.category.repository.CategoryRepository
 import br.com.wagner.dscatalog.category.request.UpdateCategoryRequest
+import br.com.wagner.dscatalog.product.model.Product
+import br.com.wagner.dscatalog.product.repository.ProductRepository
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
@@ -35,15 +37,20 @@ class UpdateCategoryControllerTest {
     @field:Autowired
     lateinit var categoryRepository: CategoryRepository
 
+    @field:Autowired
+    lateinit var productRepository: ProductRepository
+
     // rodar antes de cada teste
     @BeforeEach
     internal fun setUp() {
+        productRepository.deleteAll()
         categoryRepository.deleteAll()
     }
 
     // rodar depois de cada teste
     @AfterEach
     internal fun tearDown() {
+        productRepository.deleteAll()
         categoryRepository.deleteAll()
     }
 
@@ -105,6 +112,45 @@ class UpdateCategoryControllerTest {
 
         // assertivas
     }
+
+    // 3 cenario de teste
+
+    @Test
+    fun `deve retornar 422, quando tentar atualizar uma categoria com produtos associado a ela`() {
+
+        // cenario
+
+        val category = Category(
+            name = "eletronics"
+        )
+        categoryRepository.save(category)
+
+        val product1 = Product(
+            name = "Ventilador",
+            description = "branco, turbo",
+            price = 250.0,
+            imgUrl = "http://imagem.jpg",
+            category = category
+        )
+        productRepository.save(product1)
+
+        val idCategoriaExistente = category.id
+
+        val uri = UriComponentsBuilder.fromUriString("/api/categories/{id}").buildAndExpand(idCategoriaExistente).toUri()
+
+        val request = UpdateCategoryRequest(
+            name = "limpeza"
+        )
+
+        // ação
+
+        mockMvc.perform(MockMvcRequestBuilders.put(uri)
+            .contentType(MediaType.APPLICATION_JSON).content(toJson(request)))
+            .andExpect(MockMvcResultMatchers.status().`is`(422))
+
+        // assertivas
+    }
+
 
     // metodo para desserializar objeto de request
 

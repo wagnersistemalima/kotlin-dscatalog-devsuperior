@@ -4,7 +4,10 @@ import br.com.wagner.dscatalog.category.model.Category
 import br.com.wagner.dscatalog.category.repository.CategoryRepository
 import br.com.wagner.dscatalog.category.request.UpdateCategoryRequest
 import br.com.wagner.dscatalog.category.service.UpdateCategoryService
+import br.com.wagner.dscatalog.handler.ExceptionGenericValidated
 import br.com.wagner.dscatalog.handler.ResourceNotFoundException
+import br.com.wagner.dscatalog.product.model.Product
+import br.com.wagner.dscatalog.product.repository.ProductRepository
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -23,6 +26,9 @@ class UpdateCategoryServiceTest {
     @field:Mock
     lateinit var categoryRepository: CategoryRepository
 
+    @field:Mock
+    lateinit var productRepository: ProductRepository
+
     // 1 cenario de teste
 
     @Test
@@ -36,7 +42,7 @@ class UpdateCategoryServiceTest {
         val idCategoriaExistente = 1L
 
         val request = UpdateCategoryRequest(
-            name = "Filme"
+            name = "filme"
         )
 
         category.name = request.name
@@ -68,7 +74,7 @@ class UpdateCategoryServiceTest {
         val idCategoriaInexistente = 5000L
 
         val request = UpdateCategoryRequest(
-            name = "Filme"
+            name = "filme"
         )
 
         // ação
@@ -80,6 +86,49 @@ class UpdateCategoryServiceTest {
 
         //deve lançar exception
         Assertions.assertThrows(ResourceNotFoundException::class.java) {updateCategoryService.update(idCategoriaInexistente, request)}
+
+    }
+
+    // 3 cenario de teste
+
+    @Test
+    fun `deve lançar exception, ao tentar atualizar categoria que contem produtos associado a ela` () {
+
+        // cenario
+
+        val category = Category(
+            name = "Eletronics"
+        )
+
+        val product1 = Product(
+            name = "Ventilador",
+            description = "branco, turbo",
+            price = 250.0,
+            imgUrl = "http://imagem.jpg",
+            category = category
+        )
+
+        val list: MutableList<Product> = mutableListOf()
+        list.add(product1)
+
+        val idCategoriaExistente = 5000L
+
+        val request = UpdateCategoryRequest(
+            name = "filme"
+        )
+
+        // ação
+
+        //comportamento
+        Mockito.`when`(categoryRepository.findById(idCategoriaExistente)).thenReturn(Optional.of(category))
+
+        //comportamento deve retornar produto relacionado com a categoria que se quer atualizar
+        Mockito.`when`(productRepository.findByCategoryId(idCategoriaExistente)).thenReturn(list)
+
+        // assertivas
+
+        //deve lançar exception
+        Assertions.assertThrows(ExceptionGenericValidated::class.java) {updateCategoryService.update(idCategoriaExistente, request)}
 
     }
 

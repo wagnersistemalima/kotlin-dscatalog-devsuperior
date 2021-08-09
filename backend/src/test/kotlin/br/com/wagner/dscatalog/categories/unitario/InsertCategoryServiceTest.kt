@@ -64,13 +64,13 @@ class InsertCategoryServiceTest {
         )
 
         val request = InsertCategoryRequest(
-            name = "Pneus"
+            name = "pneus"
         )
 
         // ação
 
         //comportamento
-        Mockito.`when`(categoryRepository.existsByName(request.name)).thenReturn(true)
+        Mockito.`when`(categoryRepository.existsByName(request.name.toLowerCase())).thenReturn(true)
 
         // assertiva
 

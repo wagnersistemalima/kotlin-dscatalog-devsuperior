@@ -1,5 +1,6 @@
 package br.com.wagner.dscatalog.category.model
 
+import br.com.wagner.dscatalog.product.model.Product
 import java.time.LocalDateTime
 import javax.persistence.*
 
@@ -17,6 +18,10 @@ class Category(
     val dataRegistro = LocalDateTime.now()
 
     var updateDataRegistro: LocalDateTime? = null
+
+    // cascadeType.All  -> propagara todas as açoes para os dependentes
+    @OneToMany(cascade = arrayOf(CascadeType.ALL), mappedBy = "category", orphanRemoval = true)  // uma categoria pode possui varios produtos
+    val products: MutableList<Product> = mutableListOf()
 
     // equals & hashCode
 
@@ -39,6 +44,10 @@ class Category(
 
     fun update() {
         updateDataRegistro = LocalDateTime.now()
+    }
+
+    fun updateName(name: String) {
+        this.name = name.toLowerCase()
     }
 
 }

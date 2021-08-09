@@ -103,11 +103,11 @@ class InsertCategoryControllerTest {
         val uri = URI("/api/categories")
 
         val request = InsertCategoryRequest(
-            name = "Books"
+            name = "books"
         )
 
         val category = Category(
-            name = "Books"
+            name = "books"
         )
         categoryRepository.save(category)
 

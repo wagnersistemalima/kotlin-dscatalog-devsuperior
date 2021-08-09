@@ -2,6 +2,8 @@ package br.com.wagner.dscatalog.categories.integracao
 
 import br.com.wagner.dscatalog.category.model.Category
 import br.com.wagner.dscatalog.category.repository.CategoryRepository
+import br.com.wagner.dscatalog.product.model.Product
+import br.com.wagner.dscatalog.product.repository.ProductRepository
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -31,15 +33,20 @@ class DeleteCategoryControllerTest {
     @field:Autowired
     lateinit var categoryRepository: CategoryRepository
 
+    @field:Autowired
+    lateinit var productRepository: ProductRepository
+
     // rodar antes de cada teste
     @BeforeEach
     internal fun setUp() {
+        productRepository.deleteAll()
         categoryRepository.deleteAll()
     }
 
     // rodar depois de cada teste
     @AfterEach
     internal fun tearDown() {
+        productRepository.deleteAll()
         categoryRepository.deleteAll()
     }
 
@@ -90,6 +97,40 @@ class DeleteCategoryControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.delete(uri)
             .contentType(MediaType.APPLICATION_JSON))
             .andExpect(MockMvcResultMatchers.status().`is`(404))
+
+        // assertivas
+
+    }
+    // 3 cenario de teste
+
+    @Test
+    fun `deve retornar 422, quando tentar deletar id categoria com produtos associado a ela`() {
+
+        // cenario
+
+        val category = Category(
+            name = "Livros"
+        )
+        categoryRepository.save(category)
+
+        val product = Product(
+            name = "Ventilador",
+            description = "branco, turbo",
+            price = 250.0,
+            imgUrl = "http://imagem.jpg",
+            category = category
+        )
+        productRepository.save(product)
+
+        val idCategoryExistente = category.id
+
+        val uri = UriComponentsBuilder.fromUriString("/api/categories/{id}").buildAndExpand(idCategoryExistente).toUri()
+
+        // ação
+
+        mockMvc.perform(MockMvcRequestBuilders.delete(uri)
+            .contentType(MediaType.APPLICATION_JSON))
+            .andExpect(MockMvcResultMatchers.status().`is`(422))
 
         // assertivas
 

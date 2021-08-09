@@ -22,7 +22,7 @@ class InsertCategoryService(@field:Autowired val categoryRepository: CategoryRep
 
         // fazer validação
 
-        if(categoryRepository.existsByName(request.name)) {
+        if(categoryRepository.existsByName(request.name.toLowerCase())) {
             logger.error("----Caio no if, Campo unico, categoria já existente-----")
             throw ExceptionGenericValidated("Campo unico, categoria já existente")
         }

@@ -12,7 +12,7 @@ data class InsertCategoryRequest(
     // metodo para converter request em entidade
 
     fun toModel(): Category {
-        return Category(name)
+        return Category(name.toLowerCase())
     }
 }
 
