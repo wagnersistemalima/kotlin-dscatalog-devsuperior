@@ -45,6 +45,9 @@ por outra implementação, a aplicação continuará funcionando
 
 ![alter text](https://github.com/wagnersistemalima/kotlin-dscatalog-devsuperior/blob/main/backend/images/coverageDsCatalog.png)
 
+## Porque IDE IntelJ
+* Cada aspecto do IntelliJ IDEA foi projetado para maximizar a produtividade do desenvolvedor. Juntos, a assistência para codificação inteligente e o design ergonômico tornam o desenvolvimento não apenas produtivo, mas também agradável.
+
 ## Porque Kotlin
 * Com o conhecimento da linguagem Kotlin, é possivel desenvolver aplicações mobile, backend e web
 * Kotlin é multiplataforma
