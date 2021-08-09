@@ -14,6 +14,7 @@ As operações referenciadas pelas letras C, R, U, D cujos respectivos termos em
 * Tecnologia: Spring Boot 2.3.12
 * Gerenciador de dependência: Gradlle
 * Java 11
+* IDE IntelJ
 
 ## Implementação utilizando as ferramentas do ecossistema Spring com Kotlin 
 
