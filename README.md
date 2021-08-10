@@ -102,3 +102,14 @@ por outra implementação, a aplicação continuará funcionando
 ## Documentação API Swagger
 
 ![alter text](https://github.com/wagnersistemalima/kotlin-dscatalog-devsuperior/blob/main/backend/images/swaggerdscatalog.png)
+
+## Validação e segurança
+
+* Modelo de dados de usuários e perfis
+* Autenticação e autorização
+* Spring Security
+* OAuth 2.0
+* Token JWT
+* Autorização de rotas por perfil
+* Variáveis de ambiente no projeto com coalescência
+
