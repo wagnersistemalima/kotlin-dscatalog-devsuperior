@@ -98,3 +98,7 @@ por outra implementação, a aplicação continuará funcionando
 * Modelo conceitual
 
 ![alter text](https://github.com/wagnersistemalima/kotlin-dscatalog-devsuperior/blob/main/backend/images/modeloconceitual.png)
+
+## Documentação API Swagger
+
+![alter text](https://github.com/wagnersistemalima/kotlin-dscatalog-devsuperior/blob/main/backend/images/swaggerdscatalog.png)
