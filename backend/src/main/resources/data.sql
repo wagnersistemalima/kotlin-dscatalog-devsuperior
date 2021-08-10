@@ -17,7 +17,13 @@ INSERT INTO tb_product (name, description, price, img_url, date, date_update, ca
 INSERT INTO tb_product (name, description, price, img_url, date, date_update, category_id) Values ('PC Gamer Card', 'Lorem ipsum dolor sit amet', 1850.0, 'https://raw.githubusercontent.com/devsuperior/dscatalog-resources/master/backend/img/1-big.jpg', TIMESTAMP WITH TIME ZONE '2020-07-13T20:50:07.12345Z', null, 3)
 
 
+INSERT INTO tb_role (authority) VALUES ('ROLE_OPERATOR')
+INSERT INTO tb_role (authority) VALUES ('ROLE_ADMIN')
+
+INSERT INTO tb_user (fist_Name, last_Name, email, password) VALUES ('Alex', 'Brow', 'alex@gmail.com', '123456')
+INSERT INTO tb_user (fist_Name, last_Name, email, password) VALUES ('Maria', 'Green', 'maria@gmail.com', '123456')
 
 
-
-
+INSERT INTO tb_user_roles (user_id, roles_id) VALUES (1, 1)
+INSERT INTO tb_user_roles (user_id, roles_id) VALUES (2, 1)
+INSERT INTO tb_user_roles (user_id, roles_id) VALUES (2, 2)
