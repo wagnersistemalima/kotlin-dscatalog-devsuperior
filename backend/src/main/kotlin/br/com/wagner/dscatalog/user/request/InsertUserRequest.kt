@@ -2,6 +2,7 @@ package br.com.wagner.dscatalog.user.request
 
 import br.com.wagner.dscatalog.role.model.Role
 import br.com.wagner.dscatalog.user.model.User
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import javax.validation.constraints.Email
 import javax.validation.constraints.NotBlank
 
@@ -30,7 +31,7 @@ data class InsertUserRequest(
             fistName = fistName,
             lastName = lastName,
             email = email.toLowerCase(),
-            password = password
+            password = BCryptPasswordEncoder().encode(password)
         )
         user.roles.add(role)
         return user

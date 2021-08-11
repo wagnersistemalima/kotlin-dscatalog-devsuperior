@@ -20,8 +20,8 @@ INSERT INTO tb_product (name, description, price, img_url, date, date_update, ca
 INSERT INTO tb_role (authority) VALUES ('ROLE_OPERATOR')
 INSERT INTO tb_role (authority) VALUES ('ROLE_ADMIN')
 
-INSERT INTO tb_user (fist_Name, last_Name, email, password) VALUES ('Alex', 'Brow', 'alex@gmail.com', '123456')
-INSERT INTO tb_user (fist_Name, last_Name, email, password) VALUES ('Maria', 'Green', 'maria@gmail.com', '123456')
+INSERT INTO tb_user (fist_Name, last_Name, email, password) VALUES ('Alex', 'Brow', 'alex@gmail.com', '$2a$10$FQhpwrHAw7CH8j4yOx0e3OSTnqBwzdyUuFvYWbDMIsaW/4dCRFmUS')
+INSERT INTO tb_user (fist_Name, last_Name, email, password) VALUES ('Maria', 'Green', 'maria@gmail.com', '$2a$10$FQhpwrHAw7CH8j4yOx0e3OSTnqBwzdyUuFvYWbDMIsaW/4dCRFmUS')
 
 
 INSERT INTO tb_user_roles (user_id, roles_id) VALUES (1, 1)

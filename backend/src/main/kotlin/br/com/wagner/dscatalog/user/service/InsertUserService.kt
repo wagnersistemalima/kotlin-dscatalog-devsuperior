@@ -43,6 +43,7 @@ class InsertUserService(
         }
 
         val user = request.toModel(role)
+
         userRepository.save(user)
         logger.info("---Usuario cadastrado com sucesso---")
         return InsertUserResponse(user)
