@@ -19,7 +19,7 @@ class User(
     // associação , um usuario pode ter um ou mais perfis
 
     @field:ManyToMany(fetch = FetchType.EAGER)     // dados do perfil carregar automaticamente
-    val roles: Set<Role> = HashSet<Role>()
+    val roles: MutableList<Role> = mutableListOf()
 
     // equals & hasCode
 
@@ -37,6 +37,5 @@ class User(
     override fun hashCode(): Int {
         return id?.hashCode() ?: 0
     }
-
 
 }
