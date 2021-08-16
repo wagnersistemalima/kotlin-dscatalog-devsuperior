@@ -46,7 +46,7 @@ class AuthorizationServerConfig(
             .accessTokenValiditySeconds(jwtDuration!!)   // vence em 24 horas / 60 * 60 * 24
     }
 
-    // configurar do processamento do token
+    // configurar do processamento do token jwt
     override fun configure(endpoints: AuthorizationServerEndpointsConfigurer?) {
         endpoints!!.authenticationManager(authenticationManager)
             .tokenStore(jwtTokenStore)
