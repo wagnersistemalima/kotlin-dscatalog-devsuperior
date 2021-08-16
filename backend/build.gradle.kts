@@ -16,6 +16,8 @@ repositories {
 	mavenCentral()
 }
 
+extra["springCloudVersion"] = "Hoxton.SR11"
+
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-validation")
@@ -32,8 +34,21 @@ dependencies {
 
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
 
-	implementation("org.springframework.boot:spring-boot-starter-security")
+	// configuração security oauth 2
 
+	implementation("org.springframework.cloud:spring-cloud-starter-oauth2")
+	implementation("org.springframework.cloud:spring-cloud-starter-config")
+	testImplementation("org.springframework.boot:spring-boot-starter-test") {
+		exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
+	}
+
+
+}
+
+dependencyManagement {
+	imports {
+		mavenBom("org.springframework.cloud:spring-cloud-dependencies:${property("springCloudVersion")}")
+	}
 }
 
 tasks.withType<KotlinCompile> {
