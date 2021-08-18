@@ -65,6 +65,8 @@ class BuscarCategoryIdControllerTest {
         val response = BuscarCategoryIdResponse(category)
         // ação
 
+
+
         mockMvc.perform(MockMvcRequestBuilders.get(uri)
             .contentType(MediaType.APPLICATION_JSON))
             .andExpect(MockMvcResultMatchers.status().`is`(200))
