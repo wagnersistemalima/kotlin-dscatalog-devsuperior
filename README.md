@@ -119,25 +119,25 @@ por outra implementação, a aplicação continuará funcionando
 
 ## Spring Security
 
-# Interfaces implementadas: 
+### Interfaces implementadas: 
 * UserDetails
 * UserDetailsService
 
-# Classe para configuração de segurança web
+### Classe para configuração de segurança web
 * WebSecurityConfigurerAdapter
 
-# Bean para efetuar autenticação
+### Bean para efetuar autenticação
 * AuthenticationManager
 
 ## Spring Cloud OAuth2
 
-# Classe de configuração para Authorization Server
+### Classe de configuração para Authorization Server
 * AuthorizationServerConfigurerAdapter
 
-# Classe de configuração para Resource Server
+### Classe de configuração para Resource Server
 * ResourceServerConfigurerAdapter
 
-# Beans para implementar o padrão JWT
+### Beans para implementar o padrão JWT
 * JwtAccessTokenConverter
 * JwtTokenStore
 
