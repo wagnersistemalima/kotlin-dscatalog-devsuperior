@@ -1,5 +1,6 @@
 package br.com.wagner.dscatalog.categories.integracao
 
+import br.com.wagner.dscatalog.util.TokenUtil
 import br.com.wagner.dscatalog.category.model.Category
 import br.com.wagner.dscatalog.category.repository.CategoryRepository
 import br.com.wagner.dscatalog.product.model.Product
@@ -29,12 +30,14 @@ class DeleteCategoryControllerTest {
     @field:Autowired
     lateinit var mockMvc: MockMvc
 
-
     @field:Autowired
     lateinit var categoryRepository: CategoryRepository
 
     @field:Autowired
     lateinit var productRepository: ProductRepository
+
+    @field:Autowired
+    lateinit var tokenUtil: TokenUtil
 
     // rodar antes de cada teste
     @BeforeEach
@@ -52,8 +55,14 @@ class DeleteCategoryControllerTest {
 
     // 1 cenario de teste
 
+
     @Test
     fun `deve retornar 204, quando id category valido, deletar uma category`() {
+
+        val clientUsername = "maria@gmail.com";
+        val clientPassword = "123456";
+
+        val accesToken = tokenUtil.obtainAccessToken(mockMvc, clientUsername, clientPassword)
 
         // cenario
 
@@ -68,7 +77,7 @@ class DeleteCategoryControllerTest {
 
         // ação
 
-        mockMvc.perform(MockMvcRequestBuilders.delete(uri)
+        mockMvc.perform(MockMvcRequestBuilders.delete(uri).header("Authorization", "Bearer $accesToken")
             .contentType(MediaType.APPLICATION_JSON))
             .andExpect(MockMvcResultMatchers.status().`is`(204))
 
@@ -80,6 +89,11 @@ class DeleteCategoryControllerTest {
 
     @Test
     fun `deve retornar 404, quando id category nao existir`() {
+
+        val clientUsername = "maria@gmail.com";
+        val clientPassword = "123456";
+
+        val accesToken = tokenUtil.obtainAccessToken(mockMvc, clientUsername, clientPassword)
 
         // cenario
 
@@ -94,7 +108,7 @@ class DeleteCategoryControllerTest {
 
         // ação
 
-        mockMvc.perform(MockMvcRequestBuilders.delete(uri)
+        mockMvc.perform(MockMvcRequestBuilders.delete(uri).header("Authorization", "Bearer $accesToken")
             .contentType(MediaType.APPLICATION_JSON))
             .andExpect(MockMvcResultMatchers.status().`is`(404))
 
@@ -105,6 +119,11 @@ class DeleteCategoryControllerTest {
 
     @Test
     fun `deve retornar 422, quando tentar deletar id categoria com produtos associado a ela`() {
+
+        val clientUsername = "maria@gmail.com";
+        val clientPassword = "123456";
+
+        val accesToken = tokenUtil.obtainAccessToken(mockMvc, clientUsername, clientPassword)
 
         // cenario
 
@@ -128,7 +147,7 @@ class DeleteCategoryControllerTest {
 
         // ação
 
-        mockMvc.perform(MockMvcRequestBuilders.delete(uri)
+        mockMvc.perform(MockMvcRequestBuilders.delete(uri).header("Authorization", "Bearer $accesToken")
             .contentType(MediaType.APPLICATION_JSON))
             .andExpect(MockMvcResultMatchers.status().`is`(422))
 

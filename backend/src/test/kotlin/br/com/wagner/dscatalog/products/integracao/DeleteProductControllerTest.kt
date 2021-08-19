@@ -4,6 +4,7 @@ import br.com.wagner.dscatalog.category.model.Category
 import br.com.wagner.dscatalog.category.repository.CategoryRepository
 import br.com.wagner.dscatalog.product.model.Product
 import br.com.wagner.dscatalog.product.repository.ProductRepository
+import br.com.wagner.dscatalog.util.TokenUtil
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -35,6 +36,9 @@ class DeleteProductControllerTest {
     @field:Autowired
     lateinit var productRepository: ProductRepository
 
+    @field:Autowired
+    lateinit var tokenUtil: TokenUtil
+
     // rodar antes de cada teste
     @BeforeEach
     internal fun setUp() {
@@ -53,6 +57,11 @@ class DeleteProductControllerTest {
 
     @Test
     fun `deve retornar 204 no content, quando solicitado a deleção do produto com id valido`() {
+
+        val clientUsername = "maria@gmail.com";
+        val clientPassword = "123456";
+
+        val accesToken = tokenUtil.obtainAccessToken(mockMvc, clientUsername, clientPassword)
 
         // cenario
 
@@ -76,7 +85,7 @@ class DeleteProductControllerTest {
 
         // ação
 
-        mockMvc.perform(MockMvcRequestBuilders.delete(uri)
+        mockMvc.perform(MockMvcRequestBuilders.delete(uri).header("Authorization", "Bearer $accesToken")
             .contentType(MediaType.APPLICATION_JSON))
             .andExpect(MockMvcResultMatchers.status().`is`(204))
 
@@ -87,6 +96,11 @@ class DeleteProductControllerTest {
 
     @Test
     fun `deve retornar 404, quando tentar deletar um produto com id não existente`() {
+
+        val clientUsername = "maria@gmail.com";
+        val clientPassword = "123456";
+
+        val accesToken = tokenUtil.obtainAccessToken(mockMvc, clientUsername, clientPassword)
 
         // cenario
 
@@ -110,7 +124,7 @@ class DeleteProductControllerTest {
 
         // ação
 
-        mockMvc.perform(MockMvcRequestBuilders.delete(uri)
+        mockMvc.perform(MockMvcRequestBuilders.delete(uri).header("Authorization", "Bearer $accesToken")
             .contentType(MediaType.APPLICATION_JSON))
             .andExpect(MockMvcResultMatchers.status().`is`(404))
 

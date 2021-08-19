@@ -5,6 +5,7 @@ import br.com.wagner.dscatalog.category.repository.CategoryRepository
 import br.com.wagner.dscatalog.product.model.Product
 import br.com.wagner.dscatalog.product.repository.ProductRepository
 import br.com.wagner.dscatalog.product.request.UpdateProductRequest
+import br.com.wagner.dscatalog.util.TokenUtil
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
@@ -40,6 +41,9 @@ class UpdateProductControllerTest {
     @field:Autowired
     lateinit var categoryRepository: CategoryRepository
 
+    @field:Autowired
+    lateinit var tokenUtil: TokenUtil
+
     // rodar antes de cada teste
     @BeforeEach
     internal fun setUp() {
@@ -58,6 +62,11 @@ class UpdateProductControllerTest {
 
     @Test
     fun `deve retornar 200, atualizar produto, nao lançar exception` () {
+
+        val clientUsername = "maria@gmail.com";
+        val clientPassword = "123456";
+
+        val accesToken = tokenUtil.obtainAccessToken(mockMvc, clientUsername, clientPassword)
 
         // cenario
 
@@ -90,7 +99,7 @@ class UpdateProductControllerTest {
         val uri = UriComponentsBuilder.fromUriString("/api/products/{id}").buildAndExpand(idProductValido).toUri()
 
         // ação
-        mockMvc.perform(MockMvcRequestBuilders.put(uri)
+        mockMvc.perform(MockMvcRequestBuilders.put(uri).header("Authorization", "Bearer $accesToken")
             .contentType(MediaType.APPLICATION_JSON).content(toJson(request)))
             .andExpect(MockMvcResultMatchers.status().`is`(200))
 
@@ -101,6 +110,11 @@ class UpdateProductControllerTest {
 
     @Test
     fun `deve retornar 404, quando id do produto não existe` () {
+
+        val clientUsername = "maria@gmail.com";
+        val clientPassword = "123456";
+
+        val accesToken = tokenUtil.obtainAccessToken(mockMvc, clientUsername, clientPassword)
 
         // cenario
 
@@ -133,7 +147,7 @@ class UpdateProductControllerTest {
         val uri = UriComponentsBuilder.fromUriString("/api/products/{id}").buildAndExpand(idProductNaoExiste).toUri()
 
         // ação
-        mockMvc.perform(MockMvcRequestBuilders.put(uri)
+        mockMvc.perform(MockMvcRequestBuilders.put(uri).header("Authorization", "Bearer $accesToken")
             .contentType(MediaType.APPLICATION_JSON).content(toJson(request)))
             .andExpect(MockMvcResultMatchers.status().`is`(404))
 
@@ -144,6 +158,11 @@ class UpdateProductControllerTest {
 
     @Test
     fun `deve retornar 404, quando id da categoria nao existe para atualizar produto` () {
+
+        val clientUsername = "maria@gmail.com";
+        val clientPassword = "123456";
+
+        val accesToken = tokenUtil.obtainAccessToken(mockMvc, clientUsername, clientPassword)
 
         // cenario
 
@@ -176,7 +195,7 @@ class UpdateProductControllerTest {
         val uri = UriComponentsBuilder.fromUriString("/api/products/{id}").buildAndExpand(idProductValido).toUri()
 
         // ação
-        mockMvc.perform(MockMvcRequestBuilders.put(uri)
+        mockMvc.perform(MockMvcRequestBuilders.put(uri).header("Authorization", "Bearer $accesToken")
             .contentType(MediaType.APPLICATION_JSON).content(toJson(request)))
             .andExpect(MockMvcResultMatchers.status().`is`(404))
 
@@ -187,6 +206,11 @@ class UpdateProductControllerTest {
 
     @Test
     fun `deve retornar 422, ao tentar atualizar produto com nome ja existente cadastrado` () {
+
+        val clientUsername = "maria@gmail.com";
+        val clientPassword = "123456";
+
+        val accesToken = tokenUtil.obtainAccessToken(mockMvc, clientUsername, clientPassword)
 
         // cenario
 
@@ -219,7 +243,7 @@ class UpdateProductControllerTest {
         val uri = UriComponentsBuilder.fromUriString("/api/products/{id}").buildAndExpand(idProductValido).toUri()
 
         // ação
-        mockMvc.perform(MockMvcRequestBuilders.put(uri)
+        mockMvc.perform(MockMvcRequestBuilders.put(uri).header("Authorization", "Bearer $accesToken")
             .contentType(MediaType.APPLICATION_JSON).content(toJson(request)))
             .andExpect(MockMvcResultMatchers.status().`is`(422))
 
@@ -230,6 +254,11 @@ class UpdateProductControllerTest {
 
     @Test
     fun `deve retornar 400, ao tentar atualizar produto com nome vazio` () {
+
+        val clientUsername = "maria@gmail.com";
+        val clientPassword = "123456";
+
+        val accesToken = tokenUtil.obtainAccessToken(mockMvc, clientUsername, clientPassword)
 
         // cenario
 
@@ -262,7 +291,7 @@ class UpdateProductControllerTest {
         val uri = UriComponentsBuilder.fromUriString("/api/products/{id}").buildAndExpand(idProductValido).toUri()
 
         // ação
-        mockMvc.perform(MockMvcRequestBuilders.put(uri)
+        mockMvc.perform(MockMvcRequestBuilders.put(uri).header("Authorization", "Bearer $accesToken")
             .contentType(MediaType.APPLICATION_JSON).content(toJson(request)))
             .andExpect(MockMvcResultMatchers.status().`is`(400))
 
@@ -273,6 +302,11 @@ class UpdateProductControllerTest {
 
     @Test
     fun `deve retornar 400, ao tentar atualizar produto com descricao vazio` () {
+
+        val clientUsername = "maria@gmail.com";
+        val clientPassword = "123456";
+
+        val accesToken = tokenUtil.obtainAccessToken(mockMvc, clientUsername, clientPassword)
 
         // cenario
 
@@ -305,7 +339,7 @@ class UpdateProductControllerTest {
         val uri = UriComponentsBuilder.fromUriString("/api/products/{id}").buildAndExpand(idProductValido).toUri()
 
         // ação
-        mockMvc.perform(MockMvcRequestBuilders.put(uri)
+        mockMvc.perform(MockMvcRequestBuilders.put(uri).header("Authorization", "Bearer $accesToken")
             .contentType(MediaType.APPLICATION_JSON).content(toJson(request)))
             .andExpect(MockMvcResultMatchers.status().`is`(400))
 
@@ -316,6 +350,11 @@ class UpdateProductControllerTest {
 
     @Test
     fun `deve retornar 400, ao tentar atualizar produto com preço zerado` () {
+
+        val clientUsername = "maria@gmail.com";
+        val clientPassword = "123456";
+
+        val accesToken = tokenUtil.obtainAccessToken(mockMvc, clientUsername, clientPassword)
 
         // cenario
 
@@ -348,7 +387,7 @@ class UpdateProductControllerTest {
         val uri = UriComponentsBuilder.fromUriString("/api/products/{id}").buildAndExpand(idProductValido).toUri()
 
         // ação
-        mockMvc.perform(MockMvcRequestBuilders.put(uri)
+        mockMvc.perform(MockMvcRequestBuilders.put(uri).header("Authorization", "Bearer $accesToken")
             .contentType(MediaType.APPLICATION_JSON).content(toJson(request)))
             .andExpect(MockMvcResultMatchers.status().`is`(400))
 

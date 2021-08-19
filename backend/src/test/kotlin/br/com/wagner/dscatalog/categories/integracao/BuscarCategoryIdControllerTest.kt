@@ -19,10 +19,12 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.util.UriComponentsBuilder
 
+
 @SpringBootTest
 @AutoConfigureMockMvc
 @AutoConfigureDataJpa
 @ActiveProfiles("test")
+@Transactional
 class BuscarCategoryIdControllerTest {
 
     @field:Autowired
@@ -64,8 +66,6 @@ class BuscarCategoryIdControllerTest {
 
         val response = BuscarCategoryIdResponse(category)
         // ação
-
-
 
         mockMvc.perform(MockMvcRequestBuilders.get(uri)
             .contentType(MediaType.APPLICATION_JSON))

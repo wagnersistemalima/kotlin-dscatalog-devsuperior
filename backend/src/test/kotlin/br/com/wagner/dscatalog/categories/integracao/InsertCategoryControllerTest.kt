@@ -1,5 +1,6 @@
 package br.com.wagner.dscatalog.categories.integracao
 
+import br.com.wagner.dscatalog.util.TokenUtil
 import br.com.wagner.dscatalog.category.model.Category
 import br.com.wagner.dscatalog.category.repository.CategoryRepository
 import br.com.wagner.dscatalog.category.request.InsertCategoryRequest
@@ -35,6 +36,9 @@ class InsertCategoryControllerTest {
     @field:Autowired
     lateinit var categoryRepository: CategoryRepository
 
+    @field:Autowired
+    lateinit var tokenUtil: TokenUtil
+
     // rodar antes de cada teste
     @BeforeEach
     internal fun setUp() {
@@ -52,6 +56,11 @@ class InsertCategoryControllerTest {
     @Test
     fun `deve retornar 200, ao receber requisição com dados validados`() {
 
+        val clientUsername = "maria@gmail.com";
+        val clientPassword = "123456";
+
+        val accesToken = tokenUtil.obtainAccessToken(mockMvc, clientUsername, clientPassword)
+
         // cenario
 
         val uri = URI("/api/categories")
@@ -62,7 +71,7 @@ class InsertCategoryControllerTest {
 
         // ação
 
-        mockMvc.perform(MockMvcRequestBuilders.post(uri)
+        mockMvc.perform(MockMvcRequestBuilders.post(uri).header("Authorization", "Bearer $accesToken")
             .contentType(MediaType.APPLICATION_JSON)
             .content(toJson(request)))
             .andExpect(MockMvcResultMatchers.status().`is`(201))
@@ -75,6 +84,11 @@ class InsertCategoryControllerTest {
     @Test
     fun `deve retornar 400, ao receber requisição com nome vazio`() {
 
+        val clientUsername = "maria@gmail.com";
+        val clientPassword = "123456";
+
+        val accesToken = tokenUtil.obtainAccessToken(mockMvc, clientUsername, clientPassword)
+
         // cenario
 
         val uri = URI("/api/categories")
@@ -85,7 +99,7 @@ class InsertCategoryControllerTest {
 
         // ação
 
-        mockMvc.perform(MockMvcRequestBuilders.post(uri)
+        mockMvc.perform(MockMvcRequestBuilders.post(uri).header("Authorization", "Bearer $accesToken")
             .contentType(MediaType.APPLICATION_JSON)
             .content(toJson(request)))
             .andExpect(MockMvcResultMatchers.status().`is`(400))
@@ -97,6 +111,11 @@ class InsertCategoryControllerTest {
 
     @Test
     fun `deve retornar 422, ao receber requisição com nome da categoria ja cadastrada`() {
+
+        val clientUsername = "maria@gmail.com";
+        val clientPassword = "123456";
+
+        val accesToken = tokenUtil.obtainAccessToken(mockMvc, clientUsername, clientPassword)
 
         // cenario
 
@@ -113,7 +132,7 @@ class InsertCategoryControllerTest {
 
         // ação
 
-        mockMvc.perform(MockMvcRequestBuilders.post(uri)
+        mockMvc.perform(MockMvcRequestBuilders.post(uri).header("Authorization", "Bearer $accesToken")
             .contentType(MediaType.APPLICATION_JSON)
             .content(toJson(request)))
             .andExpect(MockMvcResultMatchers.status().`is`(422))

@@ -28,7 +28,7 @@ class AppConfig {
     fun acessTokenConverter(): JwtAccessTokenConverter {
 
         var tokenCoverter: JwtAccessTokenConverter? = JwtAccessTokenConverter()
-        tokenCoverter!!.setSigningKey("MY-JWT-SECRET")
+        tokenCoverter!!.setSigningKey(jwtSecret)
         return tokenCoverter
     }
 

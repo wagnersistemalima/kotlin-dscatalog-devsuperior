@@ -1,5 +1,6 @@
 package br.com.wagner.dscatalog.categories.integracao
 
+import br.com.wagner.dscatalog.util.TokenUtil
 import br.com.wagner.dscatalog.category.model.Category
 import br.com.wagner.dscatalog.category.repository.CategoryRepository
 import br.com.wagner.dscatalog.category.request.UpdateCategoryRequest
@@ -40,6 +41,9 @@ class UpdateCategoryControllerTest {
     @field:Autowired
     lateinit var productRepository: ProductRepository
 
+    @field:Autowired
+    lateinit var tokenUtil: TokenUtil
+
     // rodar antes de cada teste
     @BeforeEach
     internal fun setUp() {
@@ -59,6 +63,11 @@ class UpdateCategoryControllerTest {
     @Test
     fun `deve retornar 200, atualizar uma categoria quando chamado o end point put, passando id categoria valido`() {
 
+        val clientUsername = "maria@gmail.com";
+        val clientPassword = "123456";
+
+        val accesToken = tokenUtil.obtainAccessToken(mockMvc, clientUsername, clientPassword)
+
         // cenario
 
         val category = Category(
@@ -75,7 +84,7 @@ class UpdateCategoryControllerTest {
 
         // ação
 
-        mockMvc.perform(MockMvcRequestBuilders.put(uri)
+        mockMvc.perform(MockMvcRequestBuilders.put(uri).header("Authorization", "Bearer $accesToken")
             .contentType(MediaType.APPLICATION_JSON).content(toJson(request)))
             .andExpect(MockMvcResultMatchers.status().`is`(200))
 
@@ -87,6 +96,11 @@ class UpdateCategoryControllerTest {
 
     @Test
     fun `deve retornar 404, quando tentar atualizar uma categoria que não existe`() {
+
+        val clientUsername = "maria@gmail.com";
+        val clientPassword = "123456";
+
+        val accesToken = tokenUtil.obtainAccessToken(mockMvc, clientUsername, clientPassword)
 
         // cenario
 
@@ -105,7 +119,7 @@ class UpdateCategoryControllerTest {
 
         // ação
 
-        mockMvc.perform(MockMvcRequestBuilders.put(uri)
+        mockMvc.perform(MockMvcRequestBuilders.put(uri).header("Authorization", "Bearer $accesToken")
             .contentType(MediaType.APPLICATION_JSON).content(toJson(request)))
             .andExpect(MockMvcResultMatchers.status().`is`(404))
 
@@ -117,6 +131,11 @@ class UpdateCategoryControllerTest {
 
     @Test
     fun `deve retornar 422, quando tentar atualizar uma categoria com produtos associado a ela`() {
+
+        val clientUsername = "maria@gmail.com";
+        val clientPassword = "123456";
+
+        val accesToken = tokenUtil.obtainAccessToken(mockMvc, clientUsername, clientPassword)
 
         // cenario
 
@@ -144,7 +163,7 @@ class UpdateCategoryControllerTest {
 
         // ação
 
-        mockMvc.perform(MockMvcRequestBuilders.put(uri)
+        mockMvc.perform(MockMvcRequestBuilders.put(uri).header("Authorization", "Bearer $accesToken")
             .contentType(MediaType.APPLICATION_JSON).content(toJson(request)))
             .andExpect(MockMvcResultMatchers.status().`is`(422))
 

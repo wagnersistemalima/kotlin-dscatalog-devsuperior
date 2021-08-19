@@ -4,6 +4,7 @@ import br.com.wagner.dscatalog.category.model.Category
 import br.com.wagner.dscatalog.category.repository.CategoryRepository
 import br.com.wagner.dscatalog.product.repository.ProductRepository
 import br.com.wagner.dscatalog.product.request.InsertProductRequest
+import br.com.wagner.dscatalog.util.TokenUtil
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
@@ -39,6 +40,9 @@ class InsertProductControllerTest {
     @field:Autowired
     lateinit var categoryRepository: CategoryRepository
 
+    @field:Autowired
+    lateinit var tokenUtil: TokenUtil
+
     // rodar antes de cada teste
     @BeforeEach
     internal fun setUp() {
@@ -56,6 +60,11 @@ class InsertProductControllerTest {
 
     @Test
     fun `deve retornar 201, ao enviar os dados validados para inserir um produto`() {
+
+        val clientUsername = "maria@gmail.com";
+        val clientPassword = "123456";
+
+        val accesToken = tokenUtil.obtainAccessToken(mockMvc, clientUsername, clientPassword)
 
         // cenario
 
@@ -78,7 +87,7 @@ class InsertProductControllerTest {
 
         // ação
 
-        mockMvc.perform(MockMvcRequestBuilders.post(uri)
+        mockMvc.perform(MockMvcRequestBuilders.post(uri).header("Authorization", "Bearer $accesToken")
             .contentType(MediaType.APPLICATION_JSON).content(toJson(request)))
             .andExpect(MockMvcResultMatchers.status().`is`(201))
 
@@ -89,6 +98,11 @@ class InsertProductControllerTest {
 
     @Test
     fun `deve retornar 400, ao enviar o nome produto vazio`() {
+
+        val clientUsername = "maria@gmail.com";
+        val clientPassword = "123456";
+
+        val accesToken = tokenUtil.obtainAccessToken(mockMvc, clientUsername, clientPassword)
 
         // cenario
 
@@ -111,7 +125,7 @@ class InsertProductControllerTest {
 
         // ação
 
-        mockMvc.perform(MockMvcRequestBuilders.post(uri)
+        mockMvc.perform(MockMvcRequestBuilders.post(uri).header("Authorization", "Bearer $accesToken")
             .contentType(MediaType.APPLICATION_JSON).content(toJson(request)))
             .andExpect(MockMvcResultMatchers.status().`is`(400))
 
@@ -122,6 +136,11 @@ class InsertProductControllerTest {
 
     @Test
     fun `deve retornar 400, ao enviar os descriçaõ do produto vazio`() {
+
+        val clientUsername = "maria@gmail.com";
+        val clientPassword = "123456";
+
+        val accesToken = tokenUtil.obtainAccessToken(mockMvc, clientUsername, clientPassword)
 
         // cenario
 
@@ -144,7 +163,7 @@ class InsertProductControllerTest {
 
         // ação
 
-        mockMvc.perform(MockMvcRequestBuilders.post(uri)
+        mockMvc.perform(MockMvcRequestBuilders.post(uri).header("Authorization", "Bearer $accesToken")
             .contentType(MediaType.APPLICATION_JSON).content(toJson(request)))
             .andExpect(MockMvcResultMatchers.status().`is`(400))
 
@@ -155,6 +174,11 @@ class InsertProductControllerTest {
 
     @Test
     fun `deve retornar 400, ao enviar imagem do produto vazio`() {
+
+        val clientUsername = "maria@gmail.com";
+        val clientPassword = "123456";
+
+        val accesToken = tokenUtil.obtainAccessToken(mockMvc, clientUsername, clientPassword)
 
         // cenario
 
@@ -177,7 +201,7 @@ class InsertProductControllerTest {
 
         // ação
 
-        mockMvc.perform(MockMvcRequestBuilders.post(uri)
+        mockMvc.perform(MockMvcRequestBuilders.post(uri).header("Authorization", "Bearer $accesToken")
             .contentType(MediaType.APPLICATION_JSON).content(toJson(request)))
             .andExpect(MockMvcResultMatchers.status().`is`(400))
 
@@ -188,6 +212,11 @@ class InsertProductControllerTest {
 
     @Test
     fun `deve retornar 400, ao enviar preço do produto zerado`() {
+
+        val clientUsername = "maria@gmail.com";
+        val clientPassword = "123456";
+
+        val accesToken = tokenUtil.obtainAccessToken(mockMvc, clientUsername, clientPassword)
 
         // cenario
 
@@ -210,7 +239,7 @@ class InsertProductControllerTest {
 
         // ação
 
-        mockMvc.perform(MockMvcRequestBuilders.post(uri)
+        mockMvc.perform(MockMvcRequestBuilders.post(uri).header("Authorization", "Bearer $accesToken")
             .contentType(MediaType.APPLICATION_JSON).content(toJson(request)))
             .andExpect(MockMvcResultMatchers.status().`is`(400))
 
@@ -221,6 +250,11 @@ class InsertProductControllerTest {
 
     @Test
     fun `deve retornar 404, ao enviar id categoria inexistente`() {
+
+        val clientUsername = "maria@gmail.com";
+        val clientPassword = "123456";
+
+        val accesToken = tokenUtil.obtainAccessToken(mockMvc, clientUsername, clientPassword)
 
         // cenario
 
@@ -238,7 +272,7 @@ class InsertProductControllerTest {
 
         // ação
 
-        mockMvc.perform(MockMvcRequestBuilders.post(uri)
+        mockMvc.perform(MockMvcRequestBuilders.post(uri).header("Authorization", "Bearer $accesToken")
             .contentType(MediaType.APPLICATION_JSON).content(toJson(request)))
             .andExpect(MockMvcResultMatchers.status().`is`(404))
 

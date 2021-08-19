@@ -16,7 +16,7 @@ class ListaUserService(@field:Autowired val userRepository: UserRepository) {
 
     // metodo contendo a logica para listar usuarios
 
-    @Transactional
+    @Transactional(readOnly = true)
     fun findAll(pageRequest: PageRequest): Page<ListaUserResponse> {
         logger.info("----Execultando a listagem de usuarios-----")
 
