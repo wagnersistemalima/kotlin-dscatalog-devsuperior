@@ -113,3 +113,34 @@ por outra implementação, a aplicação continuará funcionando
 * Autorização de rotas por perfil
 * Variáveis de ambiente no projeto com coalescência
 
+![alter text](https://github.com/wagnersistemalima/kotlin-dscatalog-devsuperior/blob/main/backend/images/oauth.png)
+
+![alter text](https://github.com/wagnersistemalima/kotlin-dscatalog-devsuperior/blob/main/backend/images/oauth1.png)
+
+## Spring Security
+
+# Interfaces implementadas: 
+* UserDetails
+* UserDetailsService
+
+# Classe para configuração de segurança web
+* WebSecurityConfigurerAdapter
+
+# Bean para efetuar autenticação
+* AuthenticationManager
+
+## Spring Cloud OAuth2
+
+# Classe de configuração para Authorization Server
+* AuthorizationServerConfigurerAdapter
+
+# Classe de configuração para Resource Server
+* ResourceServerConfigurerAdapter
+
+# Beans para implementar o padrão JWT
+* JwtAccessTokenConverter
+* JwtTokenStore
+
+
+
+
