@@ -29,8 +29,8 @@ class InsertUserService(
 
         // validação de role-perfil
 
-        val role = roleRepository.findById(request.IdRole).orElseThrow {
-            logger.error("----Id ${request.IdRole} role não encontrado-----")
+        val role = roleRepository.findById(request.idRole).orElseThrow {
+            logger.error("----Id ${request.idRole} role não encontrado-----")
             ResourceNotFoundException("id role não encontrado") }
 
         // validações email unico

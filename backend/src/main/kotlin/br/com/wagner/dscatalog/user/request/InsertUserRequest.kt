@@ -21,7 +21,7 @@ data class InsertUserRequest(
     @field:NotBlank
     val password: String,
 
-    val IdRole: Long,
+    val idRole: Long,
 ) {
 
     // metodo contendo a logica para converter objeto em entidade
